@@ -20,8 +20,8 @@ def printing_distribution_skewness_kurtosis(df, columns):
     sns.distplot(df[columns], color="b", fit = stats.norm)
     ax.xaxis.grid(False)
     ax.set(ylabel="Frequency")
-    ax.set(xlabel="$columns Currencies")
-    ax.set(title="Distribution: mu = %.2f, std = %.2f" % (columns, mu, std))
+    ax.set(xlabel="Currencies")
+    ax.set(title="%s Distribution: mu = %.2f, std = %.2f" % (column, mu, std))
     sns.despine(trim=True, left=True)
 
     # Skewness and Kurtosis
