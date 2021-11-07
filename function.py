@@ -14,7 +14,7 @@ def printing_distribution_skewness_kurtosis(df, columns):
     f, ax = plt.subplots(figsize=(12, 8))
 
     # Fit a normal distribution
-    mu, std = norm.fit(cohort_12['energy'])
+    mu, std = norm.fit(df[columns])
 
     # Frequency
     sns.distplot(df[columns], color="b", fit = stats.norm)
