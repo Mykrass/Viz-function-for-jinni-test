@@ -7,17 +7,17 @@ import matplotlib.pyplot as plt
 from scipy.stats import norm, skew #for some statistics
 
 #
-def printing_distribution_skewness_kurtosis(df, columns):
+def printing_distribution_skewness_kurtosis(df, column):
     # Distribution
     sns.set_style("white")
     sns.set_color_codes(palette='deep')
     f, ax = plt.subplots(figsize=(12, 8))
 
     # Fit a normal distribution
-    mu, std = norm.fit(df[columns])
+    mu, std = norm.fit(df[column])
 
     # Frequency
-    sns.distplot(df[columns], color="b", fit = stats.norm)
+    sns.distplot(df[column], color="b", fit = stats.norm)
     ax.xaxis.grid(False)
     ax.set(ylabel="Frequency")
     ax.set(xlabel="Currencies")
@@ -25,10 +25,10 @@ def printing_distribution_skewness_kurtosis(df, columns):
     sns.despine(trim=True, left=True)
 
     # Skewness and Kurtosis
-    ax.text(x=1.1, y=1, transform=ax.transAxes, s="Skewness: %f" % df[columns].skew(),\
+    ax.text(x=1.1, y=1, transform=ax.transAxes, s="Skewness: %f" % df[column].skew(),\
     fontweight='demibold', fontsize=10, verticalalignment='top', horizontalalignment='right',\
     backgroundcolor='white', color='xkcd:poo brown')
-    ax.text(x=1.1, y=0.95, transform=ax.transAxes, s="Kurtosis: %f" % df[columns].kurt(),\
+    ax.text(x=1.1, y=0.95, transform=ax.transAxes, s="Kurtosis: %f" % df[column].kurt(),\
     fontweight='demibold', fontsize=10, verticalalignment='top', horizontalalignment='right',\
     backgroundcolor='white', color='xkcd:dried blood')
 
