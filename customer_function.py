@@ -21,7 +21,7 @@ def printing_distribution_skewness_kurtosis(df, columns):
     ax.xaxis.grid(False)
     ax.set(ylabel="Frequency")
     ax.set(xlabel="$columns Currencies")
-    ax.set(title="Distribution: mu = %.2f, std = %.2f" % (mu, std))
+    ax.set(title="Distribution: mu = %.2f, std = %.2f" % (columns, mu, std))
     sns.despine(trim=True, left=True)
 
     # Skewness and Kurtosis
