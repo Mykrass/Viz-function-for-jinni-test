@@ -34,22 +34,3 @@ def printing_distribution_skewness_kurtosis(df, column):
 
     plt.show()
 
- def printing_array_distribution(df_array):
-     # Distribution
-     sns.set_style("white")
-     sns.set_color_codes(palette='deep')
-     f, ax = plt.subplots(figsize=(12, 8))
-
-     # Fit a normal distribution
-     mu, std = norm.fit(df_array)
-
-     # Frequency
-     sns.distplot(df_array, color="b", fit = stats.norm)
-     ax.xaxis.grid(False)
-     ax.set(ylabel="Frequency")
-     ax.set(xlabel="Currencies")
-     ax.set(title="distribution: mu = %.2f, std = %.2f" % (mu, std))
-     sns.despine(trim=True, left=True)
-
-     plt.show()
-
