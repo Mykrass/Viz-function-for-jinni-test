@@ -33,4 +33,3 @@ def printing_distribution_skewness_kurtosis(df, column):
     backgroundcolor='white', color='xkcd:dried blood')
 
     plt.show()
-
