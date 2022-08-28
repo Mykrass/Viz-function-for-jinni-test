@@ -66,7 +66,21 @@ def add_time_futures(df, column):
     df["weekday"] = df["wday"].apply(lambda x: dict_days[x])
     df["hour"] = df.index.hour
     df = df.astype({"hour":float, "wday":float, "month": float})
-    print(df.iloc[[0, -1]])
+    print("earliest time period:", df.index.min())
+    print("latest time period:", df.index.max())
+    
+
+    
+# convert int and float64 columns to float32
+def convert_dtypes_with_reduce_memory(df): 
+    intcols = list(df.dtypes[df1.dtypes == np.int64].index)
+    df[intcols] = df[intcols].applymap(np.float32)
+
+    f64cols = list(df.dtypes[df.dtypes == np.float64].index)
+    df[f64cols] = df[f64cols].applymap(np.float32)
+
+    f32cols = list(df.dtypes[df.dtypes == np.float32].index)
+    df.info()
 
 
 
