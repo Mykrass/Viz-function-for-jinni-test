@@ -56,6 +56,10 @@ def data_cleaning(df):
     df = df.drop(df.filter(regex="forecast").columns, axis=1, errors="ignore")
     df.dropna(axis=1, how="all", inplace=True)
     df = df.loc[:, (df!=0).any(axis=0)]  
+    # handle missing values in rows of remaining columns
+    df = df.interpolate(method ="bfill")
+    # any missing values left?
+    gaps(df)
 
 
     
