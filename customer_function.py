@@ -21,7 +21,7 @@ def printing_distribution_skewness_kurtosis(df, column):
     sns.distplot(df[column], color="b", fit = stats.norm)
     ax.xaxis.grid(False)
     ax.set(ylabel="Frequency")
-    ax.set(xlabel="Currencies")
+    ax.set(xlabel=df[column])
     ax.set(title="%s distribution: mu = %.2f, std = %.2f" % (column, mu, std))
     sns.despine(trim=True, left=True)
 
@@ -37,7 +37,7 @@ def printing_distribution_skewness_kurtosis(df, column):
     
     
 # pivot table: weekdays in months
-def printing_pivot_heatmap(df, values, index, columns):
+def printing_pivot_heatmap(df, values, index, columns): #printing_pivot_heatmap(df, "hire_salary", "month", "candidates_city")
     piv = pd.pivot_table(   df, 
                             values= values, 
                             index=index, 
@@ -55,8 +55,9 @@ def printing_pivot_heatmap(df, values, index, columns):
     plt.show()
     
     
+    
 # reduce data memory    
-def convert_dtypes_with_reduce_memory(df):  
+def convert_dtypes_with_reduce_memory(df):  #convert_dtypes_with_reduce_memory(df)
     # convert int and float64 columns to float32
     intcols = list(df.dtypes[df.dtypes == np.int64].index)
     df[intcols] = df[intcols].applymap(np.float32)
@@ -65,3 +66,11 @@ def convert_dtypes_with_reduce_memory(df):
     df[f64cols] = df[f64cols].applymap(np.float32)
 
     f32cols = list(df.dtypes[df.dtypes == np.float32].index)
+    
+    
+ # boxplots
+def printing_boxplot(f32cols):
+    for i, c in enumerate(f32cols):
+        sns.boxplot(x=df1[c], palette="coolwarm")
+        plt.show();   
+    
