@@ -66,7 +66,7 @@ def add_time_futures(df, column):
     df["weekday"] = df["wday"].apply(lambda x: dict_days[x])
     df["hour"] = df.index.hour
     df = df.astype({"hour":float, "wday":float, "month": float})
-    df.iloc[[0, -1]]
+    print(df.iloc[[0, -1]])
 
 
 
