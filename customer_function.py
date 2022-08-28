@@ -11,15 +11,7 @@ import matplotlib.pyplot as plt
 from scipy.stats import norm, skew #for some statistics
 
 
-# data quality   
-def data_quality(df, column):  #convert_dtypes_with_reduce_memory(df)
-    # datetime
-    df[column] = pd.to_datetime(df[column], utc=True, infer_datetime_format=True)
-    # any duplicate time periods?
-    print("count of duplicates:",df.duplicated(subset=[column], keep="first").sum())
-    # any non-numeric types?
-    print("non-numeric columns:",list(df.dtypes[df.dtypes == "object"].index))
-    
+
     
     
 # any missing values?
