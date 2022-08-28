@@ -63,4 +63,4 @@ def convert_dtypes_with_reduce_memory(df):
     f64cols = list(df.dtypes[df.dtypes == np.float64].index)
     df[f64cols] = df[f64cols].applymap(np.float32)
 
-f32cols = list(df.dtypes[df.dtypes == np.float32].index)
+    f32cols = list(df.dtypes[df.dtypes == np.float32].index)
