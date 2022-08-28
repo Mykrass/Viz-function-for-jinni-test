@@ -49,9 +49,9 @@ def data_cleaning(df):
 # cleaning names for column
 def data_cleaning_with_vocabulary(df, en_level_candidate): # clearing 'en_level_candidate':  'no_english' and 'no english'
     df.dropna(axis=0, inplace=True) # my code for deleting last raw
-    dict_days = {'upper':'upper', 'intermediate':'intermediate', 'fluent':'fluent','pre':'pre', 'basic':'basic', 'no english':'no english', 'no_english':'no english'}
-    df['en_level_candidate'] = df['en_level_candidate'].apply(lambda x: dict_days[x])
-    df['en_level_candidate'].unique()
+    dict_days = {'upper':'upper', 'intermediate':'intermediate', 'fluent':'fluent','pre':'pre', 'basic':'basic', 'no_english':'no english'}
+    df[en_level_candidate] = df[en_level_candidate].apply(lambda x: dict_days[x])
+    print('Unique values:', df[en_level_candidate].unique())
 
         
         
