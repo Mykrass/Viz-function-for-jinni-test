@@ -38,8 +38,11 @@ def data_cleaning(df):
     df = df.loc[:, (df!=0).any(axis=0)]  
     # handle missing values in rows of remaining columns
     df = df.interpolate(method ="bfill")
-    # any missing values left?
-    gaps(df)
+    if df.isnull().values.any():
+        print("MISSING values:\n")
+        mno.matrix(df)
+    else:
+        print("no missing values\n")
 
 
 
