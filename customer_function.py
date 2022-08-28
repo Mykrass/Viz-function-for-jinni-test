@@ -10,8 +10,15 @@ from scipy import stats
 import matplotlib.pyplot as plt
 from scipy.stats import norm, skew #for some statistics
 
-
-
+# data quality   
+def data_quality(df, column):  #convert_dtypes_with_reduce_memory(df)
+    # datetime
+    df[column] = pd.to_datetime(df[column], utc=True, infer_datetime_format=True)
+    # any duplicate time periods?
+    print("count of duplicates:",df.duplicated(subset=[column], keep="first").sum())
+    # any non-numeric types?
+    print("non-numeric columns:",list(df.dtypes[df.dtypes == "object"].index))
+    
     
     
 # any missing values?
@@ -57,18 +64,6 @@ def add_time_futures(df, column):
     df["hour"] = df.index.hour
     df = df.astype({"hour":float, "wday":float, "month": float})
     df.iloc[[0, -1]]
-
-
-
-# convert int and float64 columns to float32
-def data_quality(df):
-    intcols = list(df.dtypes[df.dtypes == np.int64].index)
-    df[intcols] = df[intcols].applymap(np.float32)
-
-    f64cols = list(df.dtypes[df.dtypes == np.float64].index)
-    df[f64cols] = df[f64cols].applymap(np.float32)
-
-    f32cols = list(df.dtypes[df.dtypes == np.float32].index)
 
 
 
