@@ -54,7 +54,7 @@ def printing_pivot_heatmap(df, values, index, columns):
     plt.show()
     
     
-    
+# reduce data memory    
 def convert_dtypes_with_reduce_memory(df):  
     # convert int and float64 columns to float32
     intcols = list(df.dtypes[df.dtypes == np.int64].index)
