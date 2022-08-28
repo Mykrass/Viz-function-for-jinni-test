@@ -6,7 +6,7 @@ from scipy import stats
 import matplotlib.pyplot as plt
 from scipy.stats import norm, skew #for some statistics
 
-# For DataFrame
+# Printing parameters for Statistical distribution
 def printing_distribution_skewness_kurtosis(df, column):
     # Distribution
     sns.set_style("white")
@@ -33,3 +33,36 @@ def printing_distribution_skewness_kurtosis(df, column):
     backgroundcolor='white', color='xkcd:dried blood')
 
     plt.show()
+    
+    
+# pivot table: weekdays in months
+def printing_pivot_heatmap(df, values, index, columns):
+    piv = pd.pivot_table(   df, 
+                            values= values, 
+                            index=index, 
+                            columns=columns, 
+                            aggfunc="mean", 
+                            margins=True, margins_name="Avg", 
+                            fill_value=0)
+    pd.options.display.float_format = '{:,.0f}'.format
+
+    plt.figure(figsize = (20, 10))
+    sns.set(font_scale=1)
+    sns.heatmap(piv.round(0), annot=True, square = True, \
+                linewidths=.75, cmap="coolwarm", fmt = ".0f", annot_kws = {"size": 11})
+    plt.title("hire_salary by candidates_city by month")
+    plt.show()
+    
+    
+    
+def convert_dtypes_with_reduce_memory(df):  
+    # convert int and float64 columns to float32
+    intcols = list(df.dtypes[df.dtypes == np.int64].index)
+    df[intcols] = df[intcols].applymap(np.float32)
+
+    f64cols = list(df.dtypes[df.dtypes == np.float64].index)
+    df[f64cols] = df[f64cols].applymap(np.float32)
+
+f32cols = list(df1.dtypes[df1.dtypes == np.float32].index)
+df1.info()
+    
