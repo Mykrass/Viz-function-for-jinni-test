@@ -19,7 +19,10 @@ def data_quality(df, column):  #convert_dtypes_with_reduce_memory(df)
     print("count of duplicates:",df.duplicated(subset=[column], keep="first").sum())
     # any non-numeric types?
     print("non-numeric columns:",list(df.dtypes[df.dtypes == "object"].index))
-    # any missing values?
+    
+    
+    
+# any missing values?
 def printing_missing_values(df):
     if df.isnull().values.any():
         print("MISSING values:\n")
