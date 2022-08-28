@@ -12,12 +12,10 @@ import matplotlib.pyplot as plt
 from scipy.stats import norm, skew #for some statistics
 
 
-
-
-# reduce data memory    
+# data quality   
 def data_quality(df, column):  #convert_dtypes_with_reduce_memory(df)
 
-        # datetime
+    # datetime
     df[column] = pd.to_datetime(df[column], utc=True, infer_datetime_format=True)
     
     # any duplicate time periods?
@@ -39,18 +37,6 @@ def data_quality(df, column):  #convert_dtypes_with_reduce_memory(df)
     
     
     
-# convert int and float64 columns to float32
-def data_quality(df):
-    intcols = list(df.dtypes[df.dtypes == np.int64].index)
-    df[intcols] = df[intcols].applymap(np.float32)
-
-    f64cols = list(df.dtypes[df.dtypes == np.float64].index)
-    df[f64cols] = df[f64cols].applymap(np.float32)
-
-    f32cols = list(df.dtypes[df.dtypes == np.float32].index)
-    
-    
-    
 # drop the NaN and zero columns, and also the 'forecast' columns
 def data_cleaning(df):    
     df = df.drop(df.filter(regex="forecast").columns, axis=1, errors="ignore")
@@ -62,13 +48,49 @@ def data_cleaning(df):
     gaps(df)
 
 
-    
+
+# cleaning names for column
+def data_cleaning_with_vocabulary(df, en_level_candidate): # clearing 'en_level_candidate':  'no_english' and 'no english'
+    df.dropna(axis=0, inplace=True) # my code for deleting last raw
+    dict_days = {'upper':'upper', 'intermediate':'intermediate', 'fluent':'fluent','pre':'pre', 'basic':'basic', 'no english':'no english', 'no_english':'no english'}
+    df['en_level_candidate'] = df['en_level_candidate'].apply(lambda x: dict_days[x])
+    df['en_level_candidate'].unique()
+
+        
+        
+# add time futures
+def add_time_futures(df, column):  
+    # datetime
+    df[column] = pd.to_datetime(df[column], utc=True, infer_datetime_format=True)
+    df.set_index(column, inplace=True)
+    df["month"] = df.index.month
+    df["wday"] = df.index.dayofweek
+    dict_days = {0:"Mon", 1:"Tue", 2:"Wed", 3:"Thu", 4:"Fri", 5:"Sat", 6:"Sun"}
+    df["weekday"] = df["wday"].apply(lambda x: dict_days[x])
+    df["hour"] = df.index.hour
+    df = df.astype({"hour":float, "wday":float, "month": float})
+    df.iloc[[0, -1]]
+
+
+
+# convert int and float64 columns to float32
+def data_quality(df):
+    intcols = list(df.dtypes[df.dtypes == np.int64].index)
+    df[intcols] = df[intcols].applymap(np.float32)
+
+    f64cols = list(df.dtypes[df.dtypes == np.float64].index)
+    df[f64cols] = df[f64cols].applymap(np.float32)
+
+    f32cols = list(df.dtypes[df.dtypes == np.float32].index)
+
+
+
  # boxplots
 def printing_boxplot(f32cols):
     for i, c in enumerate(f32cols):
         sns.boxplot(x=df1[c], palette="coolwarm")
         plt.show();   
-        
+               
         
 
 # Printing parameters for Statistical distribution
