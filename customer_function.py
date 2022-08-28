@@ -11,6 +11,62 @@ from scipy import stats
 import matplotlib.pyplot as plt
 from scipy.stats import norm, skew #for some statistics
 
+
+
+
+# reduce data memory    
+def data_quality(df, column):  #convert_dtypes_with_reduce_memory(df)
+
+        # datetime
+    df[column] = pd.to_datetime(df[column], utc=True, infer_datetime_format=True)
+    
+    # any duplicate time periods?
+    print("count of duplicates:",df.duplicated(subset=["hire_reported"], keep="first").sum())
+
+    df.set_index(column, inplace=True)
+
+    # any non-numeric types?
+    print("non-numeric columns:",list(df.dtypes[df.dtypes == "object"].index))
+
+    # any missing values?
+    def gaps(df):
+        if df.isnull().values.any():
+            print("MISSING values:\n")
+            mno.matrix(df)
+        else:
+            print("no missing values\n")
+    gaps(df)  
+    
+    
+    
+# convert int and float64 columns to float32
+def data_quality(df):
+    intcols = list(df.dtypes[df.dtypes == np.int64].index)
+    df[intcols] = df[intcols].applymap(np.float32)
+
+    f64cols = list(df.dtypes[df.dtypes == np.float64].index)
+    df[f64cols] = df[f64cols].applymap(np.float32)
+
+    f32cols = list(df.dtypes[df.dtypes == np.float32].index)
+    
+    
+    
+# drop the NaN and zero columns, and also the 'forecast' columns
+def data_cleaning(df):    
+    df = df.drop(df.filter(regex="forecast").columns, axis=1, errors="ignore")
+    df.dropna(axis=1, how="all", inplace=True)
+    df = df.loc[:, (df!=0).any(axis=0)]  
+
+
+    
+ # boxplots
+def printing_boxplot(f32cols):
+    for i, c in enumerate(f32cols):
+        sns.boxplot(x=df1[c], palette="coolwarm")
+        plt.show();   
+        
+        
+
 # Printing parameters for Statistical distribution
 def printing_distribution_skewness_kurtosis(df, column):
     # Distribution
@@ -40,6 +96,7 @@ def printing_distribution_skewness_kurtosis(df, column):
     plt.show()
     
     
+    
 # pivot table: weekdays in months
 def printing_pivot_heatmap(df, values, index, columns): #printing_pivot_heatmap(df, "hire_salary", "month", "candidates_city")
     piv = pd.pivot_table(   df, 
@@ -57,24 +114,3 @@ def printing_pivot_heatmap(df, values, index, columns): #printing_pivot_heatmap(
                 linewidths=.75, cmap="coolwarm", fmt = ".0f", annot_kws = {"size": 11})
     plt.title("hire_salary by candidates_city by month")
     plt.show()
-    
-    
-    
-# reduce data memory    
-def convert_dtypes_with_reduce_memory(df):  #convert_dtypes_with_reduce_memory(df)
-    # convert int and float64 columns to float32
-    intcols = list(df.dtypes[df.dtypes == np.int64].index)
-    df[intcols] = df[intcols].applymap(np.float32)
-
-    f64cols = list(df.dtypes[df.dtypes == np.float64].index)
-    df[f64cols] = df[f64cols].applymap(np.float32)
-
-    f32cols = list(df.dtypes[df.dtypes == np.float32].index)
-    
-    
- # boxplots
-def printing_boxplot(f32cols):
-    for i, c in enumerate(f32cols):
-        sns.boxplot(x=df1[c], palette="coolwarm")
-        plt.show();   
-    
