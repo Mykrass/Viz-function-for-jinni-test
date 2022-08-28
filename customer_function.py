@@ -1,4 +1,8 @@
 #
+%matplotlib inline
+import os
+import sys
+import missingno as mno
 import warnings
 import numpy as np
 import pandas as pd
