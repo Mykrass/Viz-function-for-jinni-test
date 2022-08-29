@@ -141,3 +141,11 @@ def printing_pivot_heatmap(df, values, index, columns): #printing_pivot_heatmap(
                 linewidths=.75, cmap="coolwarm", fmt = ".0f", annot_kws = {"size": 11})
     plt.title("hire_salary by candidates_city by month")
     plt.show()
+    
+    
+
+# Creating cohort    
+  def create_cohort(df, start_date, end_date):
+  cohort = df[(df.index >=start_date) & (df.index <= end_date)].copy()
+  #cohort.reset_index(inplace=True, drop=True)
+  return(cohort)
