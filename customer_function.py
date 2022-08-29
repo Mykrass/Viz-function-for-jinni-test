@@ -60,7 +60,7 @@ def add_time_futures(df, column):
     # datetime
     df[column] = pd.to_datetime(df[column], utc=True, infer_datetime_format=True)
     df.set_index(column, inplace=True)
-    df_viz.sort_index(inplace=True)
+    df.sort_index(inplace=True)
     df["month"] = df.index.month
     df["wday"] = df.index.dayofweek
     dict_days = {0:"Mon", 1:"Tue", 2:"Wed", 3:"Thu", 4:"Fri", 5:"Sat", 6:"Sun"}
