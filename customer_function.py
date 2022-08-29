@@ -80,15 +80,17 @@ def convert_dtypes_with_reduce_memory(df):
     df[f64cols] = df[f64cols].applymap(np.float32)
 
     f32cols = list(df.dtypes[df.dtypes == np.float32].index)
+    
     df.info()
 
 
 
  # boxplots
-def printing_boxplot(f32cols):
+def printing_boxplot(df):
+    f32cols = list(df.dtypes[df.dtypes == np.float32].index)
     for i, c in enumerate(f32cols):
-        sns.boxplot(x=df1[c], palette="coolwarm")
-        plt.show();   
+        sns.boxplot(x=df[c], palette="coolwarm")
+        plt.show();  
                
         
 
