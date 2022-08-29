@@ -108,7 +108,7 @@ def printing_distribution_skewness_kurtosis(df, column):
     sns.distplot(df[column], color="b", fit = stats.norm)
     ax.xaxis.grid(False)
     ax.set(ylabel="Frequency")
-    ax.set(xlabel=df[column])
+    ax.set(xlabel=column)
     ax.set(title="%s distribution: mu = %.2f, std = %.2f" % (column, mu, std))
     sns.despine(trim=True, left=True)
 
