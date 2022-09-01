@@ -236,8 +236,7 @@ def histogram_plot(data, plot_title: str, y_axis: str):
     fig.update_yaxes(automargin=True)
     iplot(fig)
 # Particular case: Histogram subplot (1, 2)
-def histogram_subplot(dataset_a, dataset_b, feature_a: str,
-                        feature_b: str, title: str, title_a: str, title_b: str):
+def histogram_subplot(dataset_a, dataset_b, feature_a: str, feature_b: str, title: str, title_a: str, title_b: str):
     fig = make_subplots(rows=1, cols=2, subplot_titles=(
                         title_a,
                         title_b
