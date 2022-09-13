@@ -1,2 +1,1 @@
-ALTER TABLE users ALTER COLUMN created TYPE INTEGER USING created::integer;
-ALTER TABLE users ALTER COLUMN created TYPE DATE USING to_timestamp(created);
+ALTER TABLE jinni ALTER COLUMN hire_reported TYPE TIMESTAMP WITH TIME ZONE USING hire_reported::timestamptz;
