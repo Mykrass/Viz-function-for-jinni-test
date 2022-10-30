@@ -22,3 +22,5 @@ COPY jinni(
   company_type
   ) FROM '/Users/Shared/test_jinni.csv'
 DELIMITER ',' CSV HEADER;
+
+ALTER TABLE jinni ALTER COLUMN hire_reported TYPE TIMESTAMP WITH TIME ZONE USING hire_reported::timestamptz;
